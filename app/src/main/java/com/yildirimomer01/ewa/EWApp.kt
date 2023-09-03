@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.core
+package com.yildirimomer01.ewa
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

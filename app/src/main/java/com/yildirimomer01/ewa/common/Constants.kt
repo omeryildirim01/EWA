@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.core
+package com.yildirimomer01.ewa.common
 
 object Constants {
     // obtained from https://geocoding-api.open-meteo.com/v1/search?name=Istanbul&count=1
