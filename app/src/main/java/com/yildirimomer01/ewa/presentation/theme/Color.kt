@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.ui.theme
+package com.yildirimomer01.ewa.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

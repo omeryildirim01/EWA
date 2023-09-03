@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.ui.theme
+package com.yildirimomer01.ewa.presentation.theme
 
 import android.app.Activity
 import android.os.Build
