@@ -29,7 +29,17 @@
     <string name="moderate_snow_fall">Moderate snow fall</string>
     <string name="not_implemented">Not implemented</string>
     <string name="something_went_wrong_please_try_again">Ooopsss ! Something went wrong please try again !</string>
+    <string name="unknown">Unknown</string>
     <string name="loading_tag">loading</string>
     <string name="weather_info_tag">weather</string>
     <string name="error_tag">error</string>
+    <string name="feels_like">Feels like</string>
+    <string name="chance_of_precipitation">Chance of precipitation</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="daily_forecast">Daily forecast</string>
+    <string name="highlights">Highlights</string>
+    <string name="hourly_weather_forecast">Hourly weather forecast</string>
+    <string name="weather_high">High: %1$d°C</string>
+    <string name="weather_low">Low: %1$d°C</string>
+    <string name="weather_precipitation">Precipitation: %1$d&#65130;</string>
 </resources>
