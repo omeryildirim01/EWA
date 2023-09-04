@@ -95,6 +95,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
 
+    val jUnitVersion = "5.9.2"
     // testing
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
     testImplementation("junit:junit:4.13.2")
@@ -113,6 +114,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

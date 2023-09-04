@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             setState {
                 copy(
-                    error = Error(exception.localizedMessage),
+                    error = Error(exception.message),
                     isLoading = false
                 )
             }
@@ -34,8 +34,13 @@ class HomeViewModel @Inject constructor(
         fetchWeatherData()
     }
 
-    private fun fetchWeatherData() {
+    fun fetchWeatherData(refresh: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO + handler) {
+            if (refresh) {
+                setState {
+                    copy(data = null, isLoading = true, error = null)
+                }
+            }
             getWeatherDataUseCase().collectLatest { result ->
                 when (result) {
                     is Resource.Failure -> {
@@ -43,7 +48,9 @@ class HomeViewModel @Inject constructor(
                             copy(
                                 data = null,
                                 isLoading = false,
-                                error = Error("Unexpected error while fetching weather info")
+                                error = Error(
+                                    result.message ?: "Unexpected error while fetching weather info"
+                                )
                             )
                         }
                     }
