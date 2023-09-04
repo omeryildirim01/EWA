@@ -17,11 +17,12 @@ fun HourlyDto.toHourlyWeatherData(): List<HourlyWeather> {
     return time.subList(0, 24).mapIndexed { index, time ->
         HourlyWeather(
             time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME),
-            temperature = temperature[index].roundToInt(),
-            apparentTemperature = apparentTemperature[index].roundToInt(),
-            windSpeed = windSpeed[index].roundToInt(),
+            temperature = temperature[index]?.roundToInt() ?: 0,
+            apparentTemperature = apparentTemperature[index]?.roundToInt() ?: 0,
+            windSpeed = windSpeed[index]?.roundToInt() ?: 0,
             precipitationProbability = precipitationProbability.getOrNull(index),
-            weatherType = WeatherType.fromWMO(weatherCode[index])
+            weatherType = weatherCode[index]?.let { WeatherType.fromWMO(it) }
+                ?: WeatherType.ClearSky
         )
     }
 }
@@ -31,12 +32,12 @@ fun DailyDto.toDailyWeatherData(): List<DailyWeather> {
         DailyWeather(
             date = LocalDate.parse(date, DateTimeFormatter.ISO_DATE),
             weatherType = WeatherType.fromWMO(weatherCode[index]),
-            apparentTemperatureMax = apparentTemperatureMax[index].roundToInt(),
-            apparentTemperatureMin = apparentTemperatureMin[index].roundToInt(),
-            temperatureMax = temperature2mMax[index].roundToInt(),
-            temperatureMin = temperature2mMin[index].roundToInt(),
+            apparentTemperatureMax = apparentTemperatureMax[index]?.roundToInt() ?: 0,
+            apparentTemperatureMin = apparentTemperatureMin[index]?.roundToInt() ?: 0,
+            temperatureMax = temperature2mMax[index]?.roundToInt() ?: 0,
+            temperatureMin = temperature2mMin[index]?.roundToInt() ?: 0,
             precipitationProbabilityMax = precipitationProbabilityMax.getOrNull(index),
-            windSpeedMax = windSpeedMax[index].roundToInt()
+            windSpeedMax = windSpeedMax[index]?.roundToInt() ?: 0
         )
     }
 }
@@ -52,7 +53,9 @@ fun WeatherWrapperDto.toHourlyWeatherInfo(): HourlyWeatherInfo {
         currentWeatherData = currentWeatherData,
         highTemperature = weatherDataMap.maxBy { it.temperature }.temperature,
         lowTemperature = weatherDataMap.minBy { it.temperature }.temperature,
-        precipitationProbability = weatherDataMap.maxBy { it.precipitationProbability ?: 0 }.precipitationProbability
+        precipitationProbability = weatherDataMap.maxBy {
+            it.precipitationProbability ?: 0
+        }.precipitationProbability
     )
 }
 

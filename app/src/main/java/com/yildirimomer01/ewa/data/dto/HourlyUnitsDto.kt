@@ -10,13 +10,13 @@ data class HourlyUnitsDto(
     @SerialName("time")
     val time: String,
     @SerialName("temperature_2m")
-    val temperature2m: String,
+    val temperature2m: String?,
     @SerialName("apparent_temperature")
-    val apparentTemperature: String,
+    val apparentTemperature: String?,
     @SerialName("precipitation_probability")
-    val precipitationProbability: String,
+    val precipitationProbability: String?,
     @SerialName("weathercode")
-    val weatherCode: String,
+    val weatherCode: String?,
     @SerialName("windspeed_10m")
-    val windSpeed10m: String
+    val windSpeed10m: String?
 )

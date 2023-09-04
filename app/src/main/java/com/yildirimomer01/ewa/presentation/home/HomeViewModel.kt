@@ -18,12 +18,24 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel<HomeContract.HomeViewEvent, HomeContract.HomeViewState, HomeContract.HomeViewEffect>() {
     override fun setInitialState() = HomeContract.HomeViewState(isLoading = true)
 
+    private val handler = CoroutineExceptionHandler { _, exception ->
+        viewModelScope.launch {
+            setState {
+                copy(
+                    error = Error(exception.localizedMessage),
+                    isLoading = false
+                )
+            }
+        }
+        setEffect { HomeContract.HomeViewEffect.OnError }
+    }
+
     init {
         fetchWeatherData()
     }
 
     private fun fetchWeatherData() {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(Dispatchers.IO + handler) {
             getWeatherDataUseCase().collectLatest { result ->
                 when (result) {
                     is Resource.Failure -> {
@@ -35,6 +47,7 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                     }
+
                     is Resource.Success -> result.data?.let {
                         updatePostsDataToView(it)
                     }
@@ -42,6 +55,7 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
     private fun updatePostsDataToView(data: WeatherInfo) {
         viewModelScope.launch {
             setState {
@@ -51,17 +65,5 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        viewModelScope.launch {
-            setState {
-                copy(
-                    error = Error(throwable.localizedMessage),
-                    isLoading = false
-                )
-            }
-        }
-        setEffect { HomeContract.HomeViewEffect.OnError }
     }
 }
