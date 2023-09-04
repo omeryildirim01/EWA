@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.presentation.component
+package com.yildirimomer01.ewa.presentation.component.weather
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

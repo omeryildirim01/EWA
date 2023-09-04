@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.presentation.component
+package com.yildirimomer01.ewa.presentation.component.core
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode

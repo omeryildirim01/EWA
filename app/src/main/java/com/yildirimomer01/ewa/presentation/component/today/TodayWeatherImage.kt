@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.presentation.component
+package com.yildirimomer01.ewa.presentation.component.today
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

@@ -1,4 +1,4 @@
-package com.yildirimomer01.ewa.presentation.component
+package com.yildirimomer01.ewa.presentation.component.weather
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.yildirimomer01.ewa.domain.model.HourlyWeather
+import com.yildirimomer01.ewa.presentation.component.core.drawAnimatedBorder
 import com.yildirimomer01.ewa.presentation.component.preview.WeatherCardPreviewParameterProvider
+import com.yildirimomer01.ewa.presentation.component.today.TodayLabel
+import com.yildirimomer01.ewa.presentation.component.today.TodayWeatherImage
+import com.yildirimomer01.ewa.presentation.component.today.TodayWeatherImageUIState
 import com.yildirimomer01.ewa.presentation.theme.backgroundColor
 
 @Preview(name = "WeatherCardPreview", showBackground = true)
