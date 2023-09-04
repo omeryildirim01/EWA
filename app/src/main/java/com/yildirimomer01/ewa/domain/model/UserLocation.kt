@@ -1,7 +1,7 @@
 package com.yildirimomer01.ewa.domain.model
 
-import com.yildirimomer01.ewa.common.Constants.LAT
-import com.yildirimomer01.ewa.common.Constants.LON
+import com.yildirimomer01.ewa.util.Constants.LAT
+import com.yildirimomer01.ewa.util.Constants.LON
 
 data class UserLocation(
     val id: Long,
