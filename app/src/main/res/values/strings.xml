@@ -27,4 +27,5 @@
     <string name="snow_grains">Snow grains</string>
     <string name="heavy_snow_fall">Heavy snow fall</string>
     <string name="moderate_snow_fall">Moderate snow fall</string>
+    <string name="not_implemented">Not implemented</string>
 </resources>

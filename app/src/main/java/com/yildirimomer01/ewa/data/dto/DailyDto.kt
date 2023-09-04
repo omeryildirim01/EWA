@@ -12,17 +12,17 @@ data class DailyDto(
     @SerialName("weathercode")
     val weatherCode: List<Int>,
     @SerialName("temperature_2m_max")
-    val temperature2mMax: List<Double>,
+    val temperature2mMax: List<Double?>,
     @SerialName("temperature_2m_min")
-    val temperature2mMin: List<Double>,
+    val temperature2mMin: List<Double?>,
     @SerialName("apparent_temperature_max")
-    val apparentTemperatureMax: List<Double>,
+    val apparentTemperatureMax: List<Double?>,
     @SerialName("apparent_temperature_min")
-    val apparentTemperatureMin: List<Double>,
+    val apparentTemperatureMin: List<Double?>,
     @SerialName("precipitation_sum")
-    val precipitationSum: List<Double>,
+    val precipitationSum: List<Double?>,
     @SerialName("precipitation_probability_max")
-    val precipitationProbabilityMax: List<Int>,
+    val precipitationProbabilityMax: List<Int?>,
     @SerialName("windspeed_10m_max")
-    val windSpeedMax: List<Double>
+    val windSpeedMax: List<Double?>
 )
