@@ -30,7 +30,10 @@ fun WeatherCardPreview(
 }
 
 @Composable
-fun WeatherCard(hour: HourlyWeather?, modifier: Modifier = Modifier) {
+fun WeatherCard(
+    hour: HourlyWeather?,
+    modifier: Modifier = Modifier
+) {
     hour?.let {
         Box(
             modifier = Modifier

@@ -42,10 +42,13 @@ fun WeatherHighlightsPreview() {
 }
 
 @Composable
-fun WeatherHighlights(state: WeatherHighlightState) {
+fun WeatherHighlights(
+    modifier: Modifier = Modifier,
+    state: WeatherHighlightState
+) {
     state.hourlyWeatherInfo?.let {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .height(24.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center

@@ -1,27 +1,25 @@
 package com.yildirimomer01.ewa.presentation.component.hourly
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yildirimomer01.ewa.domain.model.HourlyWeather
 import com.yildirimomer01.ewa.domain.model.WeatherType
+import com.yildirimomer01.ewa.presentation.component.core.LabelText
+import com.yildirimomer01.ewa.presentation.component.core.TemperatureText
+import com.yildirimomer01.ewa.presentation.component.core.WHOCard
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -42,20 +40,12 @@ fun WeatherHourlyOverviewPreview() {
 
 @Composable
 fun WeatherHourlyOverview(
+    modifier: Modifier = Modifier,
     hourlyWeather: HourlyWeather
 ) {
-    Card(
-        border = BorderStroke(1.dp, Color.Cyan),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
-        ),
-        modifier = Modifier
-            .clip(RoundedCornerShape(26))
-            .padding(8.dp)
-    ) {
+    WHOCard(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .height(120.dp),
+            modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -66,13 +56,13 @@ fun WeatherHourlyOverview(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = formattedTime)
+                    LabelText(text = formattedTime)
                     Image(
                         painter = painterResource(id = it.weatherType.iconRes),
                         contentDescription = "Image of ${stringResource(id = it.weatherType.descriptionRes)}",
                         modifier = Modifier.width(32.dp)
                     )
-                    Text(text = "${it.temperature}°C")
+                    TemperatureText(temperature = it.temperature)
                 }
             }
         }

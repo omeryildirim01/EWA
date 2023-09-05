@@ -14,6 +14,9 @@ const val HOURLY =
     "hourly=temperature_2m,apparent_temperature,precipitation_probability,weathercode,windspeed_10m"
 const val FORECAST_URL = "v1/forecast?$HOURLY&$DAILY&$TIMEZONE&$FORECAST_DAYS"
 
+/**
+ * to be used real api response, use  @Mockable annotation as mockEnabled = false
+ */
 interface WeatherService {
 
     @GET(FORECAST_URL)

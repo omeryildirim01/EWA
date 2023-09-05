@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,12 +19,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.yildirimomer01.ewa.R
 import com.yildirimomer01.ewa.domain.model.WeatherInfo
+import com.yildirimomer01.ewa.presentation.component.core.EWAHorizontalDivider
+import com.yildirimomer01.ewa.presentation.component.core.EWAHorizontalSpacer
+import com.yildirimomer01.ewa.presentation.component.core.EWALazyRow
+import com.yildirimomer01.ewa.presentation.component.core.EWALazyRowData
 import com.yildirimomer01.ewa.presentation.component.daily.DailyWeatherInfoBox
 import com.yildirimomer01.ewa.presentation.component.daily.DailyWeatherUIState
 import com.yildirimomer01.ewa.presentation.component.highlights.WeatherHighlightState
 import com.yildirimomer01.ewa.presentation.component.highlights.WeatherHighlights
-import com.yildirimomer01.ewa.presentation.component.hourly.HourlyWeatherInfoBox
-import com.yildirimomer01.ewa.presentation.component.hourly.HourlyWeatherUIState
+import com.yildirimomer01.ewa.presentation.component.hourly.WeatherHourlyOverview
 import com.yildirimomer01.ewa.presentation.component.preview.WeatherInfoBoxPreviewParameterProvider
 
 @Preview(name = "WeatherInfoBoxPreview", showBackground = true)
@@ -33,15 +35,18 @@ import com.yildirimomer01.ewa.presentation.component.preview.WeatherInfoBoxPrevi
 fun WeatherInfoBoxPreview(
     @PreviewParameter(WeatherInfoBoxPreviewParameterProvider::class) info: WeatherInfo
 ) {
-    WeatherInfoBox(info)
+    WeatherInfoBox(
+        info = info
+    )
 }
 
 @Composable
 fun WeatherInfoBox(
+    modifier: Modifier = Modifier,
     info: WeatherInfo
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(Color.White)
     ) {
@@ -52,26 +57,23 @@ fun WeatherInfoBox(
                 .testTag(stringResource(id = R.string.weather_info_tag))
         ) {
             LazyColumn {
+                // spacing
                 item {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    EWAHorizontalSpacer()
                 }
-
+                // Top section :  WeatherCard
                 item {
                     WeatherCard(hour = info.hourlyWeatherInfo?.currentWeatherData)
                 }
-
+                // divider
                 item {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Column {
+                        EWAHorizontalSpacer()
+                        EWAHorizontalDivider()
+                    }
                 }
 
-                item {
-                    Divider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(1.dp)
-                    )
-                }
-
+                // Highlights for today
                 item {
                     WeatherHighlights(
                         state = WeatherHighlightState(
@@ -79,31 +81,33 @@ fun WeatherInfoBox(
                         )
                     )
                 }
-
+                // divider
                 item {
-                    Divider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(1.dp)
-                    )
+                    Column {
+                        EWAHorizontalDivider()
+                        EWAHorizontalSpacer()
+                    }
                 }
-
+                // hourly info boxes
+                info.hourlyWeather.map { hourlyItem ->
+                    EWALazyRowData(
+                        item = hourlyItem,
+                        content = {
+                            WeatherHourlyOverview(
+                                hourlyWeather = hourlyItem
+                            )
+                        }
+                    )
+                }.let { hours ->
+                    item {
+                        EWALazyRow(items = hours)
+                    }
+                }
+                // spacer
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
                 }
-
-                item {
-                    HourlyWeatherInfoBox(
-                        uiState = HourlyWeatherUIState(
-                            hourlyWeatherData = info.hourlyWeather
-                        )
-                    )
-                }
-
-                item {
-                    Spacer(modifier = Modifier.height(16.dp))
-                }
-
+                // daily info boxes
                 item {
                     DailyWeatherInfoBox(
                         uiState = DailyWeatherUIState(
@@ -111,7 +115,7 @@ fun WeatherInfoBox(
                         )
                     )
                 }
-
+                // spacer
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
                 }

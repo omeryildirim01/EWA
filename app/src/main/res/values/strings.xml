@@ -42,4 +42,7 @@
     <string name="weather_high">High: %1$d°C</string>
     <string name="weather_low">Low: %1$d°C</string>
     <string name="weather_precipitation">Precipitation: %1$d&#65130;</string>
+    <string name="celcius">°C</string>
+    <string name="percent">%</string>
+    <string name="kmh">km/h</string>
 </resources>

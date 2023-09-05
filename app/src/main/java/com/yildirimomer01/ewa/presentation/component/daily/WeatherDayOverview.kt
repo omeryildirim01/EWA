@@ -44,13 +44,14 @@ fun WeatherDayOverviewPreview() {
 
 @Composable
 fun WeatherDayOverview(
+    modifier: Modifier = Modifier,
     dailyWeatherData: DailyWeather
 ) {
     val formattedDate = dailyWeatherData.date.format(DateTimeFormatter.ofPattern("E d"))
     Card(
         border = BorderStroke(1.dp, Color.Cyan),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        modifier = Modifier
+        modifier = modifier
             .padding(
                 horizontal = 8.dp,
                 vertical = 16.dp
