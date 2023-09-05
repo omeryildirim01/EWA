@@ -37,20 +37,13 @@ android {
         named("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            signingConfig = signingConfigs.getByName("release")
             setProguardFiles(
                 listOf(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
             )
-            applicationVariants.all {
-                outputs.all {
-                    if (name.contains("release")) {
-                        (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = "${rootProject.name}_$versionName.apk"
-                    }
-                }
-            }
+            // /home/runner/work/EWA/EWA/app/
         }
         named("debug") {
             applicationIdSuffix = ".debug"
