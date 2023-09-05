@@ -23,11 +23,15 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Run unit tests
+
+      - name: Run ktlint format
         run: ./gradlew ktlintFormat
 
-      - name: Assemble Release Bundle
-        run: ./gradlew testDebug
+      - name: Run unit tests
+        run: ./gradlew test
+
+      - name: Run build
+        run: ./gradlew bundleRelease
 
   release:
     name: Release APK
@@ -39,7 +43,7 @@ jobs:
         # ID used to access action output
         id: sign_app
         with:
-          releaseDirectory: /home/runner/work/EWA/EWA/android/app/release
+          releaseDirectory: app/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           alias: ${{ secrets.EWA_KEY_APP_NAME }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
