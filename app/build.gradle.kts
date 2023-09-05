@@ -26,7 +26,7 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("${rootDir}/keystore.jks")
+            storeFile = file("$rootDir/keystore.jks")
             keyPassword = System.getenv("EWA_KEY_PASSWORD")
             keyAlias = System.getenv("EWA")
             storePassword = System.getenv("KEYSTORE_PASSWORD")
@@ -44,10 +44,11 @@ android {
                     "proguard-rules.pro"
                 )
             )
-            applicationVariants.all{
+            applicationVariants.all {
                 outputs.all {
-                    if(name.contains("release"))
-                        (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = "${rootProject.name}_${versionName}.apk"
+                    if (name.contains("release")) {
+                        (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = "${rootProject.name}_$versionName.apk"
+                    }
                 }
             }
         }
@@ -140,4 +141,3 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
-
