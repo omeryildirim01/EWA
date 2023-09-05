@@ -39,7 +39,7 @@ jobs:
         # ID used to access action output
         id: sign_app
         with:
-          releaseDirectory: app/build/outputs/apk/release
+          releaseDirectory: /home/runner/work/EWA/EWA/android/app/release
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           alias: ${{ secrets.EWA_KEY_APP_NAME }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
