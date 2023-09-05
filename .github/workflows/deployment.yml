@@ -30,9 +30,6 @@ jobs:
       - name: Run unit tests
         run: ./gradlew test
 
-      - name: Run build
-        run: ./gradlew bundleRelease
-
   release:
     name: Release APK
     needs: build
@@ -40,6 +37,7 @@ jobs:
     steps:
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
+        run: ./gradlew :app:assembleRelease -x test
         # ID used to access action output
         id: sign_app
         with:
