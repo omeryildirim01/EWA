@@ -24,16 +24,32 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("${rootDir}/keystore.jks")
+            keyPassword = System.getenv("EWA_KEY_PASSWORD")
+            keyAlias = System.getenv("EWA")
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
+        }
+    }
+
     buildTypes {
         named("release") {
             isMinifyEnabled = true
             isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
             setProguardFiles(
                 listOf(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
             )
+            applicationVariants.all{
+                outputs.all {
+                    if(name.contains("release"))
+                        (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = "${rootProject.name}_${versionName}.apk"
+                }
+            }
         }
         named("debug") {
             applicationIdSuffix = ".debug"
@@ -124,3 +140,4 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
+
