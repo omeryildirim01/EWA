@@ -33,8 +33,6 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew testDebug
 
-      - name: gradle bundle running
-        run: chmod +x gradlew
       - name: Bundle 'release' with Gradle
         run: ./gradlew bundleRelease
       - name: Sign AAB
