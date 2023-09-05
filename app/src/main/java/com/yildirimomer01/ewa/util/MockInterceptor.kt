@@ -27,7 +27,7 @@ class MockInterceptor @Inject constructor(
             mockResponseManager.prepareMockResponse(
                 context,
                 request,
-                mockingParameters.fileName ?: "/"
+                mockingParameters.fileName
             )
         } else {
             chain.proceed(request)

@@ -47,7 +47,7 @@ fun<T> EWALazyRow(
                     derivedStateOf {
                         val currentItemInfo = listState.layoutInfo.visibleItemsInfo
                             .firstOrNull { it.index == index }
-                            ?: return@derivedStateOf 0.2f
+                            ?: return@derivedStateOf 0.5f
                         val itemHalfSize = currentItemInfo.size / 2
                         (1f - minOf(1f, abs(currentItemInfo.offset + itemHalfSize - halfRowWidth).toFloat() / halfRowWidth) * 0.5f)
                     }
