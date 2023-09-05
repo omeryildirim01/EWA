@@ -36,9 +36,7 @@ fun DailyWeatherInfoBox(
                 modifier = modifier.height(200.dp)
             ) {
                 itemsIndexed(items) { _, dailyData ->
-                    WeatherDayOverview(
-                        dailyWeatherData = dailyData
-                    )
+                    WeatherDayOverview(dailyWeatherData = dailyData)
                 }
             }
         }
