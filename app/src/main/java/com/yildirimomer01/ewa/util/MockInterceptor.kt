@@ -11,7 +11,8 @@ import javax.inject.Inject
  */
 class MockInterceptor @Inject constructor(
     private val context: Context,
-    private val mockResponseManager: MockResponseManager
+    private val mockResponseManager: MockResponseManager,
+    private val assetManager: AssetManager
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain) = prepareResponse(chain)
 
@@ -26,6 +27,7 @@ class MockInterceptor @Inject constructor(
         return if (mockingParameters?.mockEnabled == true) {
             mockResponseManager.prepareMockResponse(
                 context,
+                assetManager,
                 request,
                 mockingParameters.fileName
             )
