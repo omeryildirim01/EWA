@@ -2,9 +2,7 @@ package com.yildirimomer01.ewa.di
 
 import android.content.Context
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.yildirimomer01.ewa.data.HomeRepositoryImpl
 import com.yildirimomer01.ewa.data.source.network.WeatherService
-import com.yildirimomer01.ewa.domain.repository.HomeRepository
 import com.yildirimomer01.ewa.util.Constants.BASE_URL
 import com.yildirimomer01.ewa.util.MockInterceptor
 import com.yildirimomer01.ewa.util.MockResponseManager
@@ -26,12 +24,6 @@ object NetworkModule {
 
     @Provides
     fun provideJson() = Json { ignoreUnknownKeys = true }
-
-    @Provides
-    @Singleton
-    fun provideHomeRepository(
-        service: WeatherService
-    ): HomeRepository = HomeRepositoryImpl(service)
 
     @Provides
     fun provideMockInterceptor(
