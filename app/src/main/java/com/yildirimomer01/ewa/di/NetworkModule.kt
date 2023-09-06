@@ -34,9 +34,6 @@ object NetworkModule {
     ): HomeRepository = HomeRepositoryImpl(service)
 
     @Provides
-    fun provideMockResponseManager() = MockResponseManager()
-
-    @Provides
     fun provideMockInterceptor(
         @ApplicationContext context: Context,
         mockResponseManager: MockResponseManager
