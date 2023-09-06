@@ -2,10 +2,10 @@ package com.yildirimomer01.ewa.domain.usecase
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
+import com.yildirimomer01.ewa.ResourceFileHelper
 import com.yildirimomer01.ewa.data.dto.WeatherWrapperDto
 import com.yildirimomer01.ewa.domain.mappers.toWeatherInfo
 import com.yildirimomer01.ewa.domain.model.WeatherInfo
-import com.yildirimomer01.ewa.domain.repository.HomeRepository
 import com.yildirimomer01.ewa.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -14,30 +14,21 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
 
-@RunWith(JUnit4::class)
 class GetWeatherDataUseCaseTest {
 
     private val testDispatcher = UnconfinedTestDispatcher()
 
     @Mock
-    lateinit var homeRepository: HomeRepository
-
-    @Mock
     lateinit var testObject: GetWeatherDataUseCase
-
-    private val json = Json { ignoreUnknownKeys = true }
 
     @Before
     fun setUp() {
@@ -55,7 +46,7 @@ class GetWeatherDataUseCaseTest {
     fun `get weather data with success response`() = runTest {
         // Arrange
         val testDataStream = GetWeatherDataUseCaseTest::class.java.getResourceAsStream("/weather.json")
-        val testData = json.decodeFromStream<WeatherWrapperDto>(testDataStream).toWeatherInfo()
+        val testData = ResourceFileHelper.json().decodeFromStream<WeatherWrapperDto>(testDataStream).toWeatherInfo()
         val flowData = flow<Resource<WeatherInfo>> {
             emit(Resource.Success(null))
             emit(Resource.Success(testData))
