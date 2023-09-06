@@ -14,10 +14,8 @@ import dagger.hilt.components.SingletonComponent
 object AppModule {
 
     @Provides
-    fun provideMockAssetManager(): AssetManager = AssetManagerImpl()
+    fun provideAssetManager(): AssetManager = AssetManagerImpl()
 
     @Provides
-    fun provideMockResponseManager(
-        assetManager: AssetManager
-    ): MockResponseManager = MockResponseManagerImpl(assetManager)
+    fun provideResponseManager(): MockResponseManager = MockResponseManagerImpl()
 }

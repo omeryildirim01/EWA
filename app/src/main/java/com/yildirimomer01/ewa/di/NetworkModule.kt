@@ -3,6 +3,7 @@ package com.yildirimomer01.ewa.di
 import android.content.Context
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.yildirimomer01.ewa.data.source.network.WeatherService
+import com.yildirimomer01.ewa.util.AssetManager
 import com.yildirimomer01.ewa.util.Constants.BASE_URL
 import com.yildirimomer01.ewa.util.MockInterceptor
 import com.yildirimomer01.ewa.util.MockResponseManager
@@ -12,6 +13,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,9 +30,10 @@ object NetworkModule {
     @Provides
     fun provideMockInterceptor(
         @ApplicationContext context: Context,
-        mockResponseManager: MockResponseManager
-    ): MockInterceptor {
-        return MockInterceptor(context, mockResponseManager)
+        mockResponseManager: MockResponseManager,
+        assetManager: AssetManager
+    ): Interceptor {
+        return MockInterceptor(context, mockResponseManager, assetManager)
     }
 
     @Provides
@@ -43,7 +46,7 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        mockInterceptor: MockInterceptor
+        mockInterceptor: Interceptor
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)

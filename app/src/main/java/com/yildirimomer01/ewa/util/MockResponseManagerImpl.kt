@@ -7,16 +7,17 @@ import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
-import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * class that handles all mock response operations
  */
-class MockResponseManagerImpl @Inject constructor(
-    private val assetManager: AssetManager
-) : MockResponseManager {
+@Singleton
+class MockResponseManagerImpl : MockResponseManager {
+
     override fun prepareMockResponse(
         context: Context,
+        assetManager: AssetManager,
         request: Request,
         fileName: String
     ): Response {
