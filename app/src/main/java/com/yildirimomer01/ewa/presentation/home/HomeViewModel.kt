@@ -56,14 +56,14 @@ class HomeViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> result.data?.let {
-                        updatePostsDataToView(it)
+                        postDataToView(it)
                     }
                 }
             }
         }
     }
 
-    private fun updatePostsDataToView(data: WeatherInfo) {
+    private fun postDataToView(data: WeatherInfo) {
         viewModelScope.launch {
             setState {
                 copy(
