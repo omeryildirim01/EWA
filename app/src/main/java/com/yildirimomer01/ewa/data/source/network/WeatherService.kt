@@ -23,6 +23,6 @@ interface WeatherService {
     @Mockable(fileName = "weather.json", mockEnabled = true)
     suspend fun getWeatherData(
         @Query("latitude") lat: Double,
-        @Query("longitude") long: Double
+        @Query("longitude") lon: Double
     ): Response<WeatherWrapperDto>
 }
