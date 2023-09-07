@@ -12,6 +12,7 @@ import kotlinx.coroutines.test.setMain
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -67,5 +68,24 @@ class WeatherServiceTest {
         assertThat(responseData).isNotNull()
         assertThat(responseData?.latitude).isEqualTo(lat)
         assertThat(responseData?.longitude).isEqualTo(lon)
+    }
+
+    @Test
+    fun `check if get response 400 is thrown`() = runTest {
+        // Arrange
+        val mockResponse = MockResponse()
+            .setBody("Bad request")
+            .setResponseCode(400)
+        mockWebServer.enqueue(mockResponse)
+        // Act
+        val serviceResponse = weatherService.getWeatherData(lat = lat, lon = lon)
+        mockWebServer.takeRequest()
+        val response = serviceResponse.body()
+        val error: ResponseBody = serviceResponse.errorBody() as ResponseBody
+        val errorResponse = ResourceFileHelper.readInputStreamAsString(error.byteStream())
+        // Assert
+        assertThat(errorResponse.contains("Bad request")).isTrue()
+        assertThat(response).isNull()
+        assertThat(error).isNotNull()
     }
 }
