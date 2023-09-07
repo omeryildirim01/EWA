@@ -21,6 +21,7 @@ import retrofit2.Retrofit
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class WeatherServiceTest {
+
     private val testDispatcher = UnconfinedTestDispatcher()
     private val client = OkHttpClient.Builder().build()
     private lateinit var mockWebServer: MockWebServer
