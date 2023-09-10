@@ -11,6 +11,8 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -29,19 +31,19 @@ fun HomeContent(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state: HomeContract.HomeViewState = viewModel.viewState.value
+    val state: State<HomeContract.HomeViewState> = viewModel.viewState.collectAsState()
     val effectFlow: Flow<HomeContract.HomeViewEffect> = viewModel.effect
     val coroutineScope = rememberCoroutineScope()
     val hostState = remember { SnackbarHostState() }
     val defaultMessage = stringResource(R.string.something_went_wrong_please_try_again)
-    if (state.error != null) {
+    if (state.value.error != null) {
         LaunchedEffect("listen-to-effects") {
             effectFlow.onEach { effect ->
                 when (effect) {
                     HomeContract.HomeViewEffect.OnError -> {
                         coroutineScope.launch {
                             val snack = hostState.showSnackbar(
-                                message = state.error.message ?: defaultMessage,
+                                message = state.value.error?.message ?: defaultMessage,
                                 actionLabel = "Retry",
                                 withDismissAction = true,
                                 duration = SnackbarDuration.Indefinite
@@ -66,7 +68,7 @@ fun HomeContent(
                     .fillMaxSize()
             ) {
                 HomeScreen(
-                    viewState = state
+                    viewState = state.value
                 )
             }
         }
