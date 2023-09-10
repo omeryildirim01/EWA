@@ -1,0 +1,22 @@
+package com.yildirimomer01.ewa.util
+
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+
+interface AppDispatcher {
+    val main: CoroutineDispatcher
+    val io: CoroutineDispatcher
+    val default: CoroutineDispatcher
+}
+
+class DefaultAppDispatcher : AppDispatcher {
+
+    override val main: CoroutineDispatcher
+        get() = Dispatchers.Main
+
+    override val io: CoroutineDispatcher
+        get() = Dispatchers.IO
+
+    override val default: CoroutineDispatcher
+        get() = Dispatchers.Default
+}

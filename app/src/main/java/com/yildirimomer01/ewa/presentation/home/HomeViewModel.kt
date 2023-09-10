@@ -4,17 +4,18 @@ import androidx.lifecycle.viewModelScope
 import com.yildirimomer01.ewa.domain.model.WeatherInfo
 import com.yildirimomer01.ewa.domain.usecase.GetWeatherDataUseCase
 import com.yildirimomer01.ewa.presentation.base.BaseViewModel
+import com.yildirimomer01.ewa.util.AppDispatcher
 import com.yildirimomer01.ewa.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getWeatherDataUseCase: GetWeatherDataUseCase
+    private val getWeatherDataUseCase: GetWeatherDataUseCase,
+    private val dispatcher: AppDispatcher
 ) : BaseViewModel<HomeContract.HomeViewEvent, HomeContract.HomeViewState, HomeContract.HomeViewEffect>() {
     override fun setInitialState() = HomeContract.HomeViewState(isLoading = true)
 
@@ -35,7 +36,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchWeatherData(refresh: Boolean = false) {
-        viewModelScope.launch(Dispatchers.IO + handler) {
+        viewModelScope.launch(dispatcher.io + handler) {
             if (refresh) {
                 setState {
                     copy(data = null, isLoading = true, error = null)
